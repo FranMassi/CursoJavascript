@@ -4,7 +4,7 @@ let dato1, dato2, dato3, media;
 
 function sacarPromedio (valor1, valor2, valor3) {
     let division = 3;
-    let promedioFinal = ((valor1 + valor2 + valor3) / division);
+    let promedioFinal = parseFloat(((valor1 + valor2 + valor3) / division));
 
     if (promedioFinal >= 6){
         alert("El promedio final es " + promedioFinal + ". El alumno aprobó la materia.");
@@ -25,7 +25,6 @@ for (let i = 0; i < 3; i++) {
 
 nota1 = parseInt(dato1);
 nota2 = parseInt(dato2);
-nota3 = parseInt(dato3);
+nota3 = parseInt(dato1);
 
 sacarPromedio (nota1, nota2, nota3);
-
