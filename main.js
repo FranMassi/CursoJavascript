@@ -8,15 +8,18 @@ function obtenerNotas() {
 //Primera Nota
         if(index = 1) {
             nota1 = prompt("Resultado del primer examen. Ingrese un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)")
+            //Si presiona cancelar
             if (nota1 === null) {
                 alert("Ha cancelado la operación");
                 if (confirm("¿Quiere reiniciar el programa?")){
                         obtenerNotas();
-                    } else {die(obtenerNotas)}; ;        
-                } else if ((isNaN(nota1) || nota1 == "" || nota1 > 10 || nota1 < 0)) {
+                    } else {die(obtenerNotas)}; ; 
+            //Sí ingresa un dato no valido       
+            } else if ((isNaN(nota1) || nota1 == "" || nota1 > 10 || nota1 < 0)) {
                 do {
                     alert ("El valor ingresado no es un dato valido.");
                     nota1 = prompt("Resultado del primer examen. Ingrese un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)");
+                    
                     if (nota1 === null) {
                         alert("Ha cancelado la operación");
                         if (confirm("¿Quiere reiniciar el programa?")){
@@ -30,15 +33,18 @@ function obtenerNotas() {
 //Segunda Nota
         if(index = 2) {
             nota2 = prompt("Resultado del segundo examen. Ingrese un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)")
+            //Si presiona cancelar
             if (nota2 === null) {
                 alert("Ha cancelado la operación");
                 if (confirm("¿Quiere reiniciar el programa?")){
                         obtenerNotas();
-                    } else {die(obtenerNotas)}; ;        
+                    } else {die(obtenerNotas)};
+            //Sí ingresa un dato no valido           
             } else if ((isNaN(nota2) || nota2 == "" || nota2 > 10 || nota2 < 0)) {
                 do {
                     alert ("El valor ingresado no es un dato valido.");
                     nota2 = prompt("Resultado del segundo examen. Ingrese un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)");
+                    
                     if (nota2 === null) {
                         alert("Ha cancelado la operación");
                         if (confirm("¿Quiere reiniciar el programa?")){
@@ -52,12 +58,14 @@ function obtenerNotas() {
 //Terecera nota
         if(index = 3) {
             nota3 = prompt("Resultado del tercer examen. Ingrese un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)")
+            //Si presiona cancelar
             if (nota3 === null) {
                 alert("Ha cancelado la operación");
                 if (confirm("¿Quiere reiniciar el programa?")){
                         obtenerNotas();
-                    } else {die(obtenerNotas)}; ;        
-                } else if ((isNaN(nota3) || nota3 == "" || nota3 > 10 || nota3 < 0)) {
+                    } else {die(obtenerNotas)}; ;    
+            //Sí ingresa un dato no valido    
+            } else if ((isNaN(nota3) || nota3 == "" || nota3 > 10 || nota3 < 0)) {
                 do {
                     alert ("El valor ingresado no es un dato valido.");
                     nota3 = prompt("Resultado del tercer examen. Ingrese un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)");
