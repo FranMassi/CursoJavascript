@@ -1,7 +1,7 @@
 //Pedimos las notas que se promediara
 function obtenerNotas() {
             do {
-                nota = prompt("Ingrese una nuta entre un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)")
+                nota = prompt("Ingrese una nota entre un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)")
 
                 if(isNaN(nota) || nota == "" || nota > 10 || nota < 0) {
                     alert ("El valor ingresado no es un dato valido.");
