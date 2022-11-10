@@ -1,44 +1,78 @@
-//Pedimos las notas que se promediara
-function obtenerNotas() {
-    do {
-        nota = prompt("Ingrese una nuta entre un número del 0 al 10: \n (Precione 'Cancelar' para finalizar la operación)")
+// Objetos: Alumnos
+class Alumno {
+  constructor(nombre, nota1, nota2, nota3, notaFinal) {
+    this.nombre = nombre;
+    this.nota1 = Number(nota1);
+    this.nota2 = Number(nota2);
+    this.nota3 = Number(nota3);
+    this.notaFinal = notaFinal;
+  }
 
-        if(isNaN(nota) || nota == "" || nota > 10 || nota < 0) {
-            alert ("El valor ingresado no es un dato valido.");
-        } else if (nota === null) {
-            alert("Ha cancelado la operación"); 
-            breakme;
-        };
+  recojerNotaFinal() {
+    let division = 3;
+    let promedioFinal = (this.nota1 + this.nota2 + this.nota3) / division;
+    this.notaFinal = Number(promedioFinal.toFixed(2));
 
-        } while ((isNaN(nota) || nota == "" || nota > 10 || nota < 0));
-    
-    return Number(nota);
+    return this.notaFinal;
+  }
 }
 
+const alumnos = [];
 
-//Sacamos el promedio
-function sacarPromedio (valor1, valor2, valor3) {
-let division = 3;
-let promedioFinal = (valor1 + valor2 + valor3) / division;
-promedioFinal = Number(promedioFinal.toFixed(2));
+function crearAlumnos() {
+  alumnos.push(
+    new Alumno(
+      (nombre = prompt("Inserte un nombre")),
+      (nota1 = prompt("Inserte la primer nota, un número del 0 al 10")),
+      (nota2 = prompt("Inserte la segunda nota, un número del 0 al 10")),
+      (nota3 = prompt("Inserte la tercer nota, un número del 0 al 10"))
+    )
+  );
 
-return promedioFinal;
-};
+  comprobarNombre(nombre);
+  comprobarNota(nota1);
+  comprobarNota(nota2);
+  comprobarNota(nota3);
+
+  for (const alumno of alumnos) {
+    alumno.recojerNotaFinal();
+  }
+}
+
+function comprobarNombre(valor) {
+  if (!isNaN(valor)) {
+    alert(
+      "Usted ingreso un número en ves de un nombre. Por favor, ingrese el nombre correcto."
+    );
+    alumnos.pop();
+    crearAlumnos();
+  }
+}
+
+function comprobarNota(valor) {
+  if (isNaN(valor) || valor == "" || valor > 10 || valor < 0 || valor == null) {
+    alert(
+      "Una de las notas ingresadas no es un dato valido. Intentelo nuevamente."
+    );
+    alumnos.pop();
+    crearAlumnos();
+  }
+}
+
+crearAlumnos();
+crearAlumnos();
+crearAlumnos();
+
+console.log (alumnos);
+let aprobaron = alumnos.filter((alumno) => alumno.notaFinal >= 6);
+console.log (aprobaron);
 
 
-//Vemos si el alumno aprobo
-function aprobarAlumno () {
-let calificaciónMinima = 6;
 
-let nota1 = obtenerNotas();
-let nota2 = obtenerNotas();
-let nota3 = obtenerNotas();
-
-let promedio = sacarPromedio(nota1, nota2, nota3);
-
-if (promedio  >= calificaciónMinima){
-alert("El promedio final es " + promedio + ". El alumno aprobó la materia.");
-} else {alert("El promedio final es " + promedio + ". El alumno no aprobó la materia.")};
-};
-
-aprobarAlumno();
+if (aprobaron.length === 0) {
+  alert("Nadie aprobó");
+} else {
+  for (const aprobados of aprobaron) {
+    alert("Aprobó: " + aprobados.nombre + " con " + aprobados.notaFinal);
+  }
+}

@@ -1,3 +1,25 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////// PRIMER PRE-ENTREGA /////////////////////////////////////////////////////
 // //Pedimos las notas que se promediara
 // function obtenerNotas() {
 //     do {
@@ -6,12 +28,9 @@
 //         if(isNaN(nota) || nota == "" || nota > 10 || nota < 0) {
 //             alert ("El valor ingresado no es un dato valido.");
 //         } else if (nota === null) {
-//             alert("Ha cancelado la operación");
-            
-//             if (confirm("¿Quiere reiniciar el programa?")){
-//             obtenerNotas();
-//             } else {breakme};
-//         }
+//             alert("Ha cancelado la operación"); 
+//             breakme;
+//         };
 
 //         } while ((isNaN(nota) || nota == "" || nota > 10 || nota < 0));
     
