@@ -1,22 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// De html y css se pueden sacar de bootstrap y es cuestión de copiar y pegar para armar la página. Yo estoy haciendo venta de pasajes y para esta entrega le sume sort para ordenar los destinos y un find para que el usuario cuando ingrese por prompt el destino lo busqué en el array de objetos que corresponda. Despues arme otro array tipo carrito y fui haciendo push en los datos que me interesaban para al final del proceso mostrar x alert ese array como un resumen de compra
 
 
 /////////////////////////////////////////////// PRIMER PRE-ENTREGA /////////////////////////////////////////////////////

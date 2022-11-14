@@ -59,20 +59,34 @@ function comprobarNota(valor) {
   }
 }
 
-crearAlumnos();
-crearAlumnos();
-crearAlumnos();
+function filtrar () {
+  console.log(alumnos);
+    let filtrarPorNota = prompt("Selecciona la nota minima - del 0 al 10 - para aprpobar, para ver quienes aprobaron");
+    let nadieAprobo = alumnos.some(el => el.notaFinal >= filtrarPorNota);
+    let aprobaron = alumnos.filter(alumno => alumno.notaFinal >= filtrarPorNota);
+    
+    if (isNaN(filtrarPorNota) || filtrarPorNota == "" || filtrarPorNota > 10 || filtrarPorNota < 0 || filtrarPorNota == null) {
+      alert(
+        "La nota minima ingresada no es un dato valido. Ingreselo nuevamente."
+      );
+      filtrar()
+    } else if (nadieAprobo === false){
+      alert("Nadie aprobó");
+    }
+    else {
+      aprobaron.forEach(aprobo => alert(aprobo.nombre + " aprobó con " + aprobo.notaFinal))
+      console.log(aprobaron);
+    }
 
-console.log (alumnos);
-let aprobaron = alumnos.filter((alumno) => alumno.notaFinal >= 6);
-console.log (aprobaron);
-
-
-
-if (aprobaron.length === 0) {
-  alert("Nadie aprobó");
-} else {
-  for (const aprobados of aprobaron) {
-    alert("Aprobó: " + aprobados.nombre + " con " + aprobados.notaFinal);
-  }
+    let repetir = confirm("Quíeres ingresar un nuevo alumno")
+    if(repetir == true){
+      crearAlumnos();
+      filtrar();
+    }
 }
+
+
+crearAlumnos();
+crearAlumnos();
+crearAlumnos();
+filtrar();
