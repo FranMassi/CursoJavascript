@@ -60,7 +60,6 @@ function comprobarNota(valor) {
 }
 
 function filtrar () {
-  console.log(alumnos);
     let filtrarPorNota = prompt("Selecciona la nota minima - del 0 al 10 - para aprpobar, para ver quienes aprobaron");
     let nadieAprobo = alumnos.some(el => el.notaFinal >= filtrarPorNota);
     let aprobaron = alumnos.filter(alumno => alumno.notaFinal >= filtrarPorNota);
@@ -75,7 +74,6 @@ function filtrar () {
     }
     else {
       aprobaron.forEach(aprobo => alert(aprobo.nombre + " aprobó con " + aprobo.notaFinal))
-      console.log(aprobaron);
     }
 
     let repetir = confirm("Quíeres ingresar un nuevo alumno")
