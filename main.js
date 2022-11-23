@@ -1,90 +1,125 @@
-// Objetos: Alumnos
-class Alumno {
-  constructor(nombre, nota1, nota2, nota3, notaFinal) {
-    this.nombre = nombre;
-    this.nota1 = Number(nota1);
-    this.nota2 = Number(nota2);
-    this.nota3 = Number(nota3);
-    this.notaFinal = notaFinal;
-  }
+//Variables de HTML
+let promedioForm = document.getElementById("promedio-form");
+let alumnos = [];
 
-  recojerNotaFinal() {
-    let division = 3;
-    let promedioFinal = (this.nota1 + this.nota2 + this.nota3) / division;
-    this.notaFinal = Number(promedioFinal.toFixed(2));
+//Llamo a la función para crear el formulario y Creo el objeto alumno
+promedioForm.addEventListener("submit", cargarFomulario);
 
-    return this.notaFinal;
-  }
+function cargarFomulario(e) {
+  e.preventDefault();
+
+  const form = new FormData(promedioForm);
+  const nombreA = form.get("nombre");
+  const notaUno = Number(form.get("nota-1"));
+  const notaDos = Number(form.get("nota-2"));
+  const notaTres = Number(form.get("nota-3"));
+  const notaFinal = (notaUno + notaDos + notaTres) / 3;
+
+  const promedioFinal = notaFinal.toFixed(2);
+
+  // Creo un objeto literal con cada tarea
+  const alumno = {
+    nombre: nombreA,
+    nota1: notaUno,
+    nota2: notaDos,
+    nota3: notaTres,
+    notaFinal: promedioFinal
+  };
+
+  crearAlumno(alumno);
+};
+
+// Imprimo el objeto alumno en el documento
+function crearAlumno(alumno) {
+  const alumnList = document.getElementById("alumn-list");
+  const div = document.createElement("div");
+  alumnos.push(alumno);
+
+  div.innerHTML += `
+      <div class="card text-center mb-4">
+          <div class="card-body">
+              <strong>Nombre</strong>: ${alumno.nombre} -
+              <strong>Nota 1</strong>: ${alumno.nota1}
+              <strong>Nota 2</strong>: ${alumno.nota2}
+              <strong>Nota 3</strong>: ${alumno.nota3}
+              <strong>Promedio Final</strong>: ${alumno.notaFinal}
+              <button href="#" class="btn btn-danger" id="${alumno.nombre}" name="delete" value="${alumno.nombre}">Delete</button>
+          </div>
+      </div>
+  `;
+
+  alumnList.appendChild(div);
+
+  //Vaciamos el formulario con el método reset()
+  promedioForm.reset();
+
+   //Guardamos los alumnos en el localStorage
+   guardarAlumnosStorage(alumnos);
+
+  //Llamamos a la función de eliminar alumno
+  alumnList.addEventListener("click", (e) => {
+    eliminarAlumno(e.target.value);
+  });
 }
 
-const alumnos = [];
-
-function crearAlumnos() {
-  alumnos.push(
-    new Alumno(
-      (nombre = prompt("Inserte un nombre")),
-      (nota1 = prompt("Inserte la primer nota, un número del 0 al 10")),
-      (nota2 = prompt("Inserte la segunda nota, un número del 0 al 10")),
-      (nota3 = prompt("Inserte la tercer nota, un número del 0 al 10"))
-    )
-  );
-
-  comprobarNombre(nombre);
-  comprobarNota(nota1);
-  comprobarNota(nota2);
-  comprobarNota(nota3);
-
-  for (const alumno of alumnos) {
-    alumno.recojerNotaFinal();
-  }
-}
-
-function comprobarNombre(valor) {
-  if (!isNaN(valor)) {
-    alert(
-      "Usted ingreso un número en ves de un nombre. Por favor, ingrese el nombre correcto."
-    );
-    alumnos.pop();
-    crearAlumnos();
-  }
-}
-
-function comprobarNota(valor) {
-  if (isNaN(valor) || valor == "" || valor > 10 || valor < 0 || valor == null) {
-    alert(
-      "Una de las notas ingresadas no es un dato valido. Intentelo nuevamente."
-    );
-    alumnos.pop();
-    crearAlumnos();
-  }
-}
-
-function filtrar () {
-    let filtrarPorNota = prompt("Selecciona la nota minima - del 0 al 10 - para aprpobar, para ver quienes aprobaron");
-    let nadieAprobo = alumnos.some(el => el.notaFinal >= filtrarPorNota);
-    let aprobaron = alumnos.filter(alumno => alumno.notaFinal >= filtrarPorNota);
-    
-    if (isNaN(filtrarPorNota) || filtrarPorNota == "" || filtrarPorNota > 10 || filtrarPorNota < 0 || filtrarPorNota == null) {
-      alert(
-        "La nota minima ingresada no es un dato valido. Ingreselo nuevamente."
-      );
-      filtrar()
-    } else if (nadieAprobo === false){
-      alert("Nadie aprobó");
+function eliminarAlumno(eliminar) {
+  alumnos.forEach((alumno, index) => {
+    if (alumno.nombre === eliminar) {
+      alumnos.splice(index, 1);
     }
-    else {
-      aprobaron.forEach(aprobo => alert(aprobo.nombre + " aprobó con " + aprobo.notaFinal))
-    }
+  });
 
-    let repetir = confirm("Quíeres ingresar un nuevo alumno")
-    if(repetir == true){
-      crearAlumnos();
-      filtrar();
-    }
+  mostrarAlumnos(alumnos);
+  guardarAlumnosStorage(alumnos)
 }
 
+//Guardar y recuperar alumnos del Storage
+const guardarAlumnosStorage = (alumnos) => {
+  localStorage.setItem("Alumnos", JSON.stringify(alumnos));
+};
 
-crearAlumnos();
-crearAlumnos();
-crearAlumnos();
-filtrar();
+function recuperarAlumnosStorage () {
+  const alumnosStorage = JSON.parse(localStorage.getItem("Alumnos"));
+  return alumnosStorage;
+}
+
+//Actualizar lista de alumnos impresa en el HTML
+function mostrarAlumnos(alumnos) {
+  const alumnList = document.getElementById("alumn-list");
+  const div = document.createElement("div");
+
+  // Limpiamos el contenedor de las tareas
+  alumnList.innerHTML = "";
+
+  alumnos.forEach(alumno => {
+    div.innerHTML += `
+      <div class="card text-center mb-4">
+        <div class="card-body">
+            <strong>Nombre</strong>: ${alumno.nombre} -
+            <strong>Nota 1</strong>: ${alumno.nota1}
+            <strong>Nota 2</strong>: ${alumno.nota2}
+            <strong>Nota 3</strong>: ${alumno.nota3}
+            <strong>Nota 3</strong>: ${alumno.notaFinal}
+            <button href="#" class="btn btn-danger" id="${alumno.nombre}" name="delete" value="${alumno.nombre}">Delete</button>
+        </div>
+    </div>
+  `;
+
+    alumnList.appendChild(div);
+  });
+
+  //Llamamos a la función de eliminar alumno
+  alumnList.addEventListener("click", (e) => {
+    eliminarAlumno(e.target.value);
+  });
+}
+
+//Comprobar si existen alumnos guardados en el storage
+document.addEventListener("DOMContentLoaded", verStorage);
+
+function verStorage() {
+  if (localStorage.getItem("Alumnos")) {
+    alumnos = recuperarAlumnosStorage();
+    mostrarAlumnos(alumnos);
+  }
+}
